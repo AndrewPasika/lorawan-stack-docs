@@ -88,15 +88,15 @@ It is also possible (and even preferred) to use a managed SQL database. In this 
 
 The simplest configuration for PostgreSQL looks like this (excerpted from the example `docker-compose.yml`):
 
-{{< highlight yaml "linenos=table,linenostart=5" >}}
-{{< readfile path="/content/getting-started/installation/configuration/docker-compose-enterprise.yml" from=4 to=14 >}}
+{{< highlight yaml "linenos=table,linenostart=4" >}}
+{{< readfile path="/content/getting-started/installation/configuration/docker-compose-enterprise.yml" from=4 to=17 >}}
 {{< /highlight >}}
 
 ### Redis
 
 The configuration in this guide uses a single instance of [Redis](https://redis.io/). Again, note that the `volumes` need to be set up correctly so that the datastore is persisted on your server's disk. 
 
-{{< note >}} {{% tts %}} requires Redis version 6.2 or newer. {{</ note >}}
+{{< note >}} {{% tts %}} requires Redis 6.2.x. {{</ note >}}
 
 In production, replace the `image` with a working, stable tag from [Docker Hub - Redis](https://hub.docker.com/_/redis?tab=tags).
 
@@ -104,8 +104,8 @@ It is also possible (and even preferred) to use a managed Redis database. In thi
 
 The simplest configuration for Redis looks like this (excerpted from the example `docker-compose.yml`):
 
-{{< highlight yaml "linenos=table,linenostart=28" >}}
-{{< readfile path="/content/getting-started/installation/configuration/docker-compose-enterprise.yml" from=28 to=37 >}}
+{{< highlight yaml "linenos=table,linenostart=19" >}}
+{{< readfile path="/content/getting-started/installation/configuration/docker-compose-enterprise.yml" from=19 to=28 >}}
 {{< /highlight >}}
 
 ### {{% tts %}}
@@ -118,14 +118,14 @@ In production, replace the `image` with a working, stable tag from [Docker Hub -
 
 The default command is `start`, which starts {{% tts %}}.
 
-{{< highlight yaml "linenos=table,linenostart=39" >}}
-{{< readfile path="/content/getting-started/installation/configuration/docker-compose-enterprise.yml" from=39 to=43 >}}
+{{< highlight yaml "linenos=table,linenostart=53" >}}
+{{< readfile path="/content/getting-started/installation/configuration/docker-compose-enterprise.yml" from=53 to=58 >}}
 {{< /highlight >}}
 
 The `depends_on` field tells Docker Compose that {{% tts %}} depends on PostgreSQL and Redis. With this, Docker Compose will wait for PostgreSQL and Redis to come online before starting {{% tts %}}.
 
-{{< highlight yaml "linenos=table,linenostart=45" >}}
-{{< readfile path="/content/getting-started/installation/configuration/docker-compose-enterprise.yml" from=45 to=50 >}}
+{{< highlight yaml "linenos=table,linenostart=59" >}}
+{{< readfile path="/content/getting-started/installation/configuration/docker-compose-enterprise.yml" from=59 to=61 >}}
 {{< /highlight >}}
 
 {{< note >}} If using a managed SQL or Redis database, these can be removed from `depends_on` and the services do not need to be started in Docker. {{</ note >}}
@@ -134,8 +134,8 @@ The `depends_on` field tells Docker Compose that {{% tts %}} depends on PostgreS
 
 Under the `volumes` section, volumes for the files that need to be persisted on the disk are defined. There are stored blob files (such as profile pictures) and certificate files retrieved with ACME (if required). Also, local `./config/stack/` directory is mounted on the container under `/config`, so that {{% tts %}} can find the configuration file at `/config/ttn-lw-stack-docker.yml`.
 
-{{< highlight yaml "linenos=table,linenostart=51" >}}
-{{< readfile path="/content/getting-started/installation/configuration/docker-compose-enterprise.yml" from=51 to=55 >}}
+{{< highlight yaml "linenos=table,linenostart=62" >}}
+{{< readfile path="/content/getting-started/installation/configuration/docker-compose-enterprise.yml" from=62 to=66 >}}
 {{< /highlight >}}
 
 {{< note >}} If your `ttn-lw-stack-docker.yml` is in a directory other than `./config/stack`, you will need to change this volume accordingly. {{</ note >}}
@@ -148,8 +148,8 @@ The databases used by {{% tts %}} are configured in the `environment` section. I
 
 The `ports` section exposes {{% tts %}}'s ports outside the Docker container. Port `80` and `443` are mapped to the internal HTTP and HTTPS ports. The other ports have a direct mapping. If you don't need support for gateways and applications that don't use TLS, you can remove ports starting with `188`:
 
-{{< highlight yaml "linenos=table,linenostart=56" >}}
-{{< readfile path="/content/getting-started/installation/configuration/docker-compose-enterprise.yml" from=56 to=83 >}}
+{{< highlight yaml "linenos=table,linenostart=67" >}}
+{{< readfile path="/content/getting-started/installation/configuration/docker-compose-enterprise.yml" from=67 to=93 >}}
 {{< /highlight >}}
 
 ## Understanding {{% tts %}} Configuration
